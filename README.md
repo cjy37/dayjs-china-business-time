@@ -98,28 +98,27 @@ dayjs.setHolidays(holidays);
 
 ### Getting Holidays
 ````typescript
-const holidays: string[] = dayjs.setHolidays(holidays);
-
+const holidays: string[] = dayjs.getHolidays();
 console.log(holidays);
-// Output: ['2021-01-01', '2021-01-25', '2021-06-03']
+// Output: ['2022-05-01', '2022-05-02', '2022-05-03', '2022-05-04']
 ````
 
 ### Setting Workdays
 ````typescript
-    // 5月补班
-    const workdays = ['2022-05-07'];
-    dayjs.setWorkdays(workdays);
+// 5月补班
+const workdays = ['2022-05-07'];
+dayjs.setWorkdays(workdays);
 ````
 
 ### Setting Work Times
 
 ````typescript
-    // 工作时段
-    const workHours = [
-      { start: '09:00:00', end: '12:00:00' },
-      { start: '13:30:00', end: '18:00:00' },
-    ]
-    dayjs.setWorktime(workHours);
+// 工作时段
+const workHours = [
+  { start: '09:00:00', end: '12:00:00' },
+  { start: '13:30:00', end: '18:00:00' },
+]
+dayjs.setWorktime(workHours);
 ````
 
 ### Setting Business Times
