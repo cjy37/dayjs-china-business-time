@@ -85,18 +85,18 @@ dayjs.extend(dayjsBusinessTime);
 // Now you have all Business Time methods in dayjs
 ````
 ## Setup
+
+    // Setting wednesday working hours for 2 segments
+    //   with 3 and 5 hours respectively
+    // const businessHours = dayjs.getBusinessTime();
+
 ### Setting Holidays
+
 > By default, holidays are empty!
 
 ````typescript
-// Create your holidays array as string array
-const holidays: string[] = [
-    '2021-01-01',
-    '2021-01-25',
-    '2021-06-03',
-];
-
-// Add holidays to dayjs
+// 5月假期
+const holidays: string[] = ['2022-05-01', '2022-05-02', '2022-05-03', '2022-05-04'];
 dayjs.setHolidays(holidays);
 ````
 
@@ -108,33 +108,39 @@ console.log(holidays);
 // Output: ['2021-01-01', '2021-01-25', '2021-06-03']
 ````
 
+### Setting Workdays
+````typescript
+    // 5月补班
+    const workdays = ['2022-05-07'];
+    dayjs.setWorkdays(workdays);
+````
+
+### Setting Work Times
+
+````typescript
+    // 工作时段
+    const workHours = [
+      { start: '09:00:00', end: '12:00:00' },
+      { start: '13:30:00', end: '18:00:00' },
+    ]
+    dayjs.setWorktime(workHours);
+````
+
 ### Setting Business Times
 
 > By default, Business Times are Monday-Friday, 9am - 5pm, but you can setup as many Business Segments you want in a day
 
 ````typescript
 // Create your Business Week definition
+// warn: 默认5天工作制，设置为null的为周末，时段设置不再从这里取，欲设置工作时段请调用“setWorktime(workHours)”
 const businessTimes: BusinessHoursMap = {
-  sunday: null,
-  monday: [
-    { start: '09:00:00', end: '17:00:00' }
-  ],
-  tuesday: [
-    { start: '09:00:00', end: '12:00:00' },
-    { start: '13:00:00', end: '18:00:00' }
-  ],
-  wednesday: [
-    { start: '09:00:00', end: '12:00:00' },
-    { start: '13:00:00', end: '16:00:00' },
-    { start: '13:00:00', end: '17:00:00' }
-  ],
-  thursday: [
-    { start: '09:00:00', end: '17:00:00' }
-  ],
-  friday: [
-    { start: '09:00:00', end: '17:00:00' }
-  ],
-  saturday: null,
+  sunday:    null,
+  monday:    [ { start: '09:00:00', end: '17:00:00' } ],
+  tuesday:   [ { start: '09:00:00', end: '17:00:00' } ],
+  wednesday: [ { start: '09:00:00', end: '17:00:00' } ],
+  thursday:  [ { start: '09:00:00', end: '17:00:00' } ],
+  friday:    [ { start: '09:00:00', end: '17:00:00' } ],
+  saturday:  null,
 }
 
 // Set Business Times in dayjs
