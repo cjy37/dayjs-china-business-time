@@ -11,11 +11,17 @@ describe('Add Business Minutes', () => {
 
     // Setting wednesday working hours for 2 segments
     //   with 3 and 5 hours respectively
-    const businessHours = dayjs.getBusinessTime();
-    businessHours.wednesday = [
+    // const businessHours = dayjs.getBusinessTime();
+    // businessHours.wednesday = [
+    //   { start: '09:00:00', end: '12:00:00' },
+    //   { start: '13:00:00', end: '18:00:00' },
+    // ];
+    // 工段
+    const workHours = [
       { start: '09:00:00', end: '12:00:00' },
-      { start: '13:00:00', end: '18:00:00' },
-    ];
+      { start: '13:00:00', end: '18:00:00' }
+    ]
+    dayjs.setWorktime(workHours);
   });
 
   it('should add 15 business minutes on a date', () => {
@@ -40,7 +46,7 @@ describe('Add Business Minutes', () => {
 
   it('should add 45 business minutes on a date before a weekend', () => {
     // february 19th, 2021 is a friday
-    const date = dayjs('2021-02-19 16:30:00');
+    const date = dayjs('2021-02-19 17:30:00');
 
     // february 25th, 2021 is a monday
     const expected = dayjs('2021-02-22 09:15:00');
@@ -68,7 +74,7 @@ describe('Add Business Minutes', () => {
   it('should add 16 business minutes on a date before a long weekend', () => {
     // january 22nd, 2021 is a friday
     //   before São Paulo City anniversary
-    const date = dayjs('2021-01-22 17:00:00');
+    const date = dayjs('2021-01-22 18:00:00');
 
     // january 27th, 2021 is a wednesday
     const expected = dayjs('2021-01-26 09:16:00');

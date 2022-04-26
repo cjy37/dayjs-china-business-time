@@ -11,11 +11,17 @@ describe('Business Hours Diff', () => {
 
     // Setting wednesday working hours for 2 segments
     //   with 3 and 5 hours respectively
-    const businessHours = dayjs.getBusinessTime();
-    businessHours.wednesday = [
+    // const businessHours = dayjs.getBusinessTime();
+    // businessHours.wednesday = [
+    //   { start: '09:00:00', end: '12:00:00' },
+    //   { start: '13:00:00', end: '18:00:00' },
+    // ];
+    // 工段
+    const workHours = [
       { start: '09:00:00', end: '12:00:00' },
-      { start: '13:00:00', end: '18:00:00' },
-    ];
+      { start: '13:00:00', end: '18:00:00' }
+    ]
+    dayjs.setWorktime(workHours);
   });
 
   it('should get the 2 business hours diff between 2 times', () => {
@@ -70,7 +76,7 @@ describe('Business Hours Diff', () => {
 
   it('should get the 5 business hours diff between 2 times with a long weekend', () => {
     const start = dayjs('2021-01-22 14:00:00');
-    const end = dayjs('2021-01-26 11:00:00');
+    const end = dayjs('2021-01-26 10:00:00');
 
     const diff = start.businessHoursDiff(end);
 
@@ -89,11 +95,11 @@ describe('Business Hours Diff', () => {
   });
 
   it('should get the -3.5 business hours diff between 2 times in the same day with timezone', () => {
-    const start = dayjs('2021-05-17T13:30:00-03:00');
-    const end = dayjs('2021-05-17T10:00:00-03:00');
+    const start = dayjs('2021-05-17 13:30:00');
+    const end = dayjs('2021-05-17 09:00:00');
 
     const diff = start.businessHoursDiff(end);
-
+    
     expect(diff).toBeDefined();
     expect(diff).toBe(-3.5);
   });
@@ -109,7 +115,7 @@ describe('Business Hours Diff', () => {
   });
 
   it('should get the 9.5 business hour diff between 2 times in 2 business days with a day with 2 segments', () => {
-    const start = dayjs('2021-05-25 14:30:00');
+    const start = dayjs('2021-05-25 15:30:00');
     const end = dayjs('2021-05-26 17:00:00');
 
     const diff = start.businessHoursDiff(end);

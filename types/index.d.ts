@@ -6,13 +6,18 @@ export = plugin
 declare module 'dayjs' {
   export function getHolidays(): string[];
   export function setHolidays(holidays: string[]): void;
+  export function getWorkdays(): string[];
+  export function setWorkdays(workdays: string[]): void;
   export function getBusinessTime(): BusinessHoursMap;
   export function setBusinessTime(businessHours: BusinessHoursMap): void;
+  export function getWorktime(): BusinessHours[];
+  export function setWorktime(workHours: BusinessHours[]): void;
 
   export type BusinessUnitType = 'minute' | 'minutes' | 'hour' | 'hours' | 'day' | 'days';
   export interface Dayjs {
     isBusinessDay(): boolean,
     isHoliday(): boolean,
+    isWorkday(): boolean,
     nextBusinessDay(): Dayjs,
     lastBusinessDay(): Dayjs,
     isBusinessTime(): boolean,
@@ -52,7 +57,9 @@ declare module 'dayjs' {
   }
 
   export interface ILocale {
+    workdays: string[],
     holidays: string[],
+    workHours: BusinessHours[],
     businessHours: BusinessHoursMap,
   }
 }

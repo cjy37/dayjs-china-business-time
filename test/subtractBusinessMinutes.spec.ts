@@ -11,11 +11,17 @@ describe('Subtract Business Minutes', () => {
 
     // Setting wednesday working hours for 2 segments
     //   with 3 and 5 hours respectively
-    const businessHours = dayjs.getBusinessTime();
-    businessHours.wednesday = [
+    // const businessHours = dayjs.getBusinessTime();
+    // businessHours.wednesday = [
+    //   { start: '09:00:00', end: '12:00:00' },
+    //   { start: '13:00:00', end: '18:00:00' },
+    // ];
+    // 工段
+    const workHours = [
       { start: '09:00:00', end: '12:00:00' },
-      { start: '13:00:00', end: '18:00:00' },
-    ];
+      { start: '13:00:00', end: '18:00:00' }
+    ]
+    dayjs.setWorktime(workHours);
   });
 
   it('should subtract 30 business minutes on a date', () => {
@@ -43,7 +49,7 @@ describe('Subtract Business Minutes', () => {
     const date = dayjs('2021-02-22 09:30:00');
 
     // february 19th, 2021 is a friday
-    const expected = dayjs('2021-02-19 16:57:00');
+    const expected = dayjs('2021-02-19 17:57:00');
 
     const newDate = date.subtractBusinessMinutes(33);
 
@@ -71,7 +77,7 @@ describe('Subtract Business Minutes', () => {
     const date = dayjs('2021-01-26 10:00:00');
 
     // january 22nd, 2021 is a friday
-    const expected = dayjs('2021-01-22 16:30:00');
+    const expected = dayjs('2021-01-22 17:30:00');
 
     const newDate = date.subtractBusinessMinutes(90);
 

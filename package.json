@@ -1,25 +1,25 @@
 {
-  "name": "dayjs-business-time",
-  "version": "1.0.4",
+  "name": "dayjs-china-business-time",
+  "version": "1.0.0",
   "author": "Alexsander Lira",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "license": "MIT",
   "keywords": [
+    "china",
     "dayjs",
     "date",
     "time",
-    "business time",
-    "business hours",
-    "business days",
-    "working time",
-    "working hours",
-    "working days",
-    "rankmyapp"
+    "china business time",
+    "china business hours",
+    "china business days",
+    "china working time",
+    "china working hours",
+    "china working days"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/rankmyapp/dayjs-business-time.git"
+    "url": "https://github.com/cjy37/dayjs-china-business-time.git"
   },
   "scripts": {
     "test": "jest",

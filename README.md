@@ -1,12 +1,12 @@
-# dayjs-business-time
+# dayjs-china-business-time
 
 A [Day.js](https://github.com/iamkun/dayjs) plugin that allows you to work with Business Time.
 
-* Business Days
-* Business Hours
-* Business Minutes
-* Customize business days and hours
-* Customize Holidays to prevent them to be counted as Business Days
+* China Business Days
+* China Business Hours
+* China Business Minutes
+* Customize China business days and hours
+* Customize China Holidays to prevent them to be counted as Business Days
 
 
 # Getting Started

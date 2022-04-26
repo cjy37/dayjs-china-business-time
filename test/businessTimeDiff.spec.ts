@@ -11,11 +11,17 @@ describe('Business Minutes Diff', () => {
 
     // Setting wednesday working hours for 2 segments
     //   with 3 and 5 hours respectively
-    const businessHours = dayjs.getBusinessTime();
-    businessHours.wednesday = [
+    // const businessHours = dayjs.getBusinessTime();
+    // businessHours.wednesday = [
+    //   { start: '09:00:00', end: '12:00:00' },
+    //   { start: '13:00:00', end: '18:00:00' },
+    // ];
+    // 工段
+    const workHours = [
       { start: '09:00:00', end: '12:00:00' },
-      { start: '13:00:00', end: '18:00:00' },
-    ];
+      { start: '13:00:00', end: '18:00:00' }
+    ]
+    dayjs.setWorktime(workHours);
   });
 
   it('should get the 30 business minutes diff between 2 times', () => {
@@ -30,7 +36,7 @@ describe('Business Minutes Diff', () => {
 
   it('should get the 90 business minutes diff between 2 times in different days', () => {
     const start = dayjs('2021-02-08 16:45:00');
-    const end = dayjs('2021-02-09 10:15:00');
+    const end = dayjs('2021-02-09 09:15:00');
 
     const diff = start.businessTimeDiff(end, 'minutes');
 

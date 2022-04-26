@@ -4,10 +4,15 @@ import IsSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import IsSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import dayjs, {
   BusinessHoursMap,
+  BusinessHours,
   BusinessTimeSegment,
   BusinessUnitType,
   Dayjs,
 } from 'dayjs';
+
+const WORKING_HOURS = [
+  { start: '09:00:00', end: '17:00:00' }
+];
 
 const DEFAULT_WORKING_HOURS = {
   sunday: null,
@@ -39,6 +44,7 @@ const businessTime = (
   dayjsFactory.extend(IsSameOrBefore);
   dayjsFactory.extend(IsSameOrAfter);
 
+  setWorktime(WORKING_HOURS);
   setBusinessTime(DEFAULT_WORKING_HOURS);
   setHolidays([]);
 
@@ -58,12 +64,28 @@ const businessTime = (
     updateLocale({ holidays });
   }
 
+  function getWorkdays(): string[] {
+    return getLocale().workdays || [];
+  }
+
+  function setWorkdays(workdays) {
+    updateLocale({ workdays });
+  }
+
   function getBusinessTime(): BusinessHoursMap {
     return getLocale().businessHours;
   }
 
   function setBusinessTime(businessHours: BusinessHoursMap) {
     updateLocale({ businessHours });
+  }
+
+  function getWorktime(): BusinessHours[] {
+    return getLocale().workHours;
+  }
+
+  function setWorktime(workHours: BusinessHours[]) {
+    updateLocale({ workHours });
   }
 
   function isHoliday() {
@@ -73,12 +95,18 @@ const businessTime = (
     return holidays.includes(today);
   }
 
+  function isWorkday() {
+    const today = this.format('YYYY-MM-DD');
+    const workdays = getWorkdays();
+
+    return workdays.includes(today);
+  }
   function isBusinessDay() {
     const businessHours = getBusinessTime();
     const dayName = DaysNames[this.day()];
     const isDefaultWorkingDay = !!businessHours[dayName];
 
-    return isDefaultWorkingDay && !this.isHoliday();
+    return (isDefaultWorkingDay || this.isWorkday()) && !this.isHoliday();
   }
 
   function addOrsubtractBusinessDays(
@@ -133,15 +161,16 @@ const businessTime = (
     }
     let date = day.clone();
 
-    const dayName = DaysNames[date.day()];
+    //const dayName = DaysNames[date.day()];
+    // const businessHours = getBusinessTime()[dayName];
 
-    const businessHours = getBusinessTime()[dayName];
+    const businessHours = getWorktime();
 
     return businessHours.reduce((segments, businessTime, index) => {
       let { start, end } = businessTime;
-      start = timeStringToDayJS(start, date);
-      end = timeStringToDayJS(end, date);
-      segments.push({ start, end });
+      let _start = timeStringToDayJS(start, date);
+      let _end = timeStringToDayJS(end, date);
+      segments.push({ start: _start, end: _end });
       return segments;
     }, []);
   }
@@ -439,11 +468,16 @@ const businessTime = (
   // New functions on dayjs factory
   dayjsFactory.getHolidays = getHolidays;
   dayjsFactory.setHolidays = setHolidays;
+  dayjsFactory.getWorkdays = getWorkdays;
+  dayjsFactory.setWorkdays = setWorkdays;
   dayjsFactory.getBusinessTime = getBusinessTime;
   dayjsFactory.setBusinessTime = setBusinessTime;
+  dayjsFactory.getWorktime = getWorktime;
+  dayjsFactory.setWorktime = setWorktime;
 
   // New methods on Dayjs class
   DayjsClass.prototype.isHoliday = isHoliday;
+  DayjsClass.prototype.isWorkday = isWorkday;
   DayjsClass.prototype.isBusinessDay = isBusinessDay;
   DayjsClass.prototype.nextBusinessDay = nextBusinessDay;
   DayjsClass.prototype.lastBusinessDay = lastBusinessDay;
