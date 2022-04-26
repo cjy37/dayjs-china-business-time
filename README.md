@@ -47,12 +47,12 @@ A [Day.js](https://github.com/iamkun/dayjs) plugin that allows you to work with 
 
 ### With NPM
 ```console
-npm i dayjs-business-time
+npm i dayjs-china-business-time
 ```
 
 ### With Yarn
 ```console
-yarn add dayjs-business-time
+yarn add dayjs-china-business-time
 ```
 
 ## Usage
@@ -62,8 +62,8 @@ yarn add dayjs-business-time
 // First of all, include dayjs
 const dayjs = require('dayjs');
 
-// Then, include dayjs-business-time
-const dayjsBusinessTime = require('dayjs-business-time');
+// Then, include dayjs-china-business-time
+const dayjsBusinessTime = require('dayjs-china-business-time');
 
 // Attach dayjs plugin
 dayjs.extend(dayjsBusinessTime);
@@ -77,7 +77,7 @@ dayjs.extend(dayjsBusinessTime);
 import dayjs from 'dayjs';
 
 // Then, include dayjs-business-time
-import dayjsBusinessTime from 'dayjs-business-time';
+import dayjsBusinessTime from 'dayjs-china-business-time';
 
 // Attach dayjs plugin
 dayjs.extend(dayjsBusinessTime);
