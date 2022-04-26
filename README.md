@@ -86,10 +86,6 @@ dayjs.extend(dayjsBusinessTime);
 ````
 ## Setup
 
-    // Setting wednesday working hours for 2 segments
-    //   with 3 and 5 hours respectively
-    // const businessHours = dayjs.getBusinessTime();
-
 ### Setting Holidays
 
 > By default, holidays are empty!
